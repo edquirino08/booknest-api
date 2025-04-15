@@ -1,15 +1,17 @@
 import Fastify from "fastify";
-import { application } from "./app";
-import { setupJwt } from "./infra/http/security.configuration";
+import Application from "./app";
+import { setupJwt } from "./infra/http/security/security.configuration";
 import dotenv from "dotenv";
 
-const fastify = Fastify({ logger: true });
 dotenv.config();
 
-const start = async () => {
+const fastify = Fastify({ logger: true });
+const application = new Application();
+
+async function start() {
   setupJwt(fastify);
-  fastify.register(application);
+  fastify.register(application.setup.bind(application));
   await fastify.listen({ port: 3000, host: "0.0.0.0" });
-};
+}
 
 start();

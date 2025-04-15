@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { handleGetBooks } from "../controllers/books.controller";
+import { handleGetBooks } from "./books.controller";
 
 export const bookRoute = async (fastifyInstance: FastifyInstance) => {
   fastifyInstance.get("/", handleGetBooks);
