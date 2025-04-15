@@ -1,17 +1,17 @@
 import Fastify from "fastify";
-import Application from "./app";
-import { setupJwt } from "./infra/http/security/security.configuration";
-import dotenv from "dotenv";
+import { bootstrap } from "fastify-decorators";
 
-dotenv.config();
+const app = Fastify();
 
-const fastify = Fastify({ logger: true });
-const application = new Application();
+app.register(bootstrap, {
+  directory: __dirname + "/controllers", // Adjust the path to your controllers directory
+  mask: /\.controller\./, // Adjust the file mask if needed
+});
 
-async function start() {
-  setupJwt(fastify);
-  fastify.register(application.setup.bind(application));
-  await fastify.listen({ port: 3000, host: "0.0.0.0" });
-}
-
-start();
+app.listen({ port: 3000 }, (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`Servidor rodando em ${address}`);
+});

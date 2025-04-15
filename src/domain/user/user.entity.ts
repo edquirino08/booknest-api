@@ -15,6 +15,18 @@ export class User {
     this.props = props;
   }
 
+  static create(
+    data: Omit<UserProps, "id" | "createdAt" | "updatedAt" | "deletedAt">
+  ): User {
+    return new User({
+      ...data,
+      id: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+    });
+  }
+
   get id(): number {
     return this.props.id;
   }
