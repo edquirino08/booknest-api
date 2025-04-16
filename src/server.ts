@@ -1,12 +1,18 @@
 import fastify from "fastify";
 import { bootstrap } from "fastify-decorators";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+// Corrige __dirname para ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function buildServer() {
   const app = fastify({ logger: true });
 
   app.register(bootstrap, {
-    directory: `${__dirname}/interfaces`,
-    mask: /\.controller\.[tj]s$/,
+    directory: join(__dirname, "interfaces"),
+    mask: /\.controller\.[tj]s$/, // carrega controllers automaticamente
   });
 
   return app;
