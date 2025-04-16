@@ -1,0 +1,36 @@
+{
+  "name": "booknest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts,json --exec tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edquirino08/booknest-api.git"
+  },
+  "author": "Eduardo Quirino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edquirino08/booknest-api/issues"
+  },
+  "homepage": "https://github.com/edquirino08/booknest-api#readme",
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "fastify": "^5.3.0",
+    "fastify-decorators": "^3.16.1",
+    "prisma": "^6.6.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}
