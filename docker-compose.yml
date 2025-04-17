@@ -5,7 +5,36 @@ services:
     container_name: booknest-api-container
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - postgres
     restart: always
+
+  postgres:
+    image: postgres:16
+    container_name: booknest-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: booknest
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  migrate:
+    image: node:23-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    env_file:
+      - .env.prod
+    command: sh -c "npm install && npx prisma migrate deploy"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
