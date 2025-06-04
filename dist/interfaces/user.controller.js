@@ -9,6 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { GET, Controller } from "fastify-decorators";
 let UserController = class UserController {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
+    }
     async getUser() {
         return {
             message: "Hello World",
@@ -22,6 +25,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 UserController = __decorate([
-    Controller({ route: "/user" })
+    Controller({ route: "/user" }),
+    __metadata("design:paramtypes", [Object])
 ], UserController);
 export default UserController;
