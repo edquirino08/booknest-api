@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/edquirino08/booknest-api#readme",
   "dependencies": {
+    "@fastify/awilix": "^8.0.0",
     "@prisma/client": "^6.6.0",
     "awilix": "^12.0.5",
     "class-transformer": "^0.5.1",

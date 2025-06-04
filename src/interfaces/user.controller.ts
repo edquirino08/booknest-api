@@ -1,7 +1,9 @@
 const getUser = async () => {
-    return { message: "User data retrieved successfully" };
+  return { message: "User data retrieved successfully" };
 };
+
 const userController = {
-    getUser,
+  getUser,
 };
+
 export default userController;

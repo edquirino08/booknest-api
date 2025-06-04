@@ -1,8 +1,11 @@
 import fastify from "fastify";
+import { routes } from "./interfaces/routes";
 
 const server = fastify({
   logger: true,
 });
+
+server.register(routes);
 
 async function startServer() {
   try {
