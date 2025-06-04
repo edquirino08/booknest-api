@@ -18,7 +18,6 @@ export class HttpPresenter {
         message: message,
       });
     }
-    // Default to 400 Bad Request if no code is provided
     return reply.code(400).send({
       message: message,
     });
