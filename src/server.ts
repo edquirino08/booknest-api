@@ -12,6 +12,8 @@ function initAwilix() {
   const di = DI({});
   const _container = di._container();
   server.decorate("container", () => _container);
+  const { userController } = _container.cradle;
+  userController.getUser();
 }
 
 initAwilix();

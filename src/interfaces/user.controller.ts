@@ -1,5 +1,5 @@
 const getUser = async () => {
-  return { message: "User data retrieved successfully" };
+  console.log("Fetching user data...");
 };
 
 const userController = {
