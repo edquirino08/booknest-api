@@ -1,24 +1,18 @@
 import * as awilix from "awilix";
 import Joi from "joi";
 import _ from "lodash";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import userController from "../../../interfaces/user.controller";
+import { getUserUseCase } from "../../../application/user/get-user.usecase";
+import { getUser } from "../../../interfaces/user.controller";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const container = awilix.createContainer({
+  injectionMode: "PROXY", // permite injeção automática por nome
+});
 
-const container = awilix.createContainer();
+container.register({
+  Joi: awilix.asValue(Joi),
+  _: awilix.asValue(_),
+  getUserUseCase: awilix.asValue(getUserUseCase),
+  userController: awilix.asValue(getUser),
+});
 
-export default function DI(options: any) {
-  container.register({
-    Joi: awilix.asValue(Joi),
-    _: awilix.asValue(_),
-    userController: awilix.asValue(userController),
-  });
-  const _container = () => container;
-
-  return {
-    _container,
-  };
-}
+export default container;
