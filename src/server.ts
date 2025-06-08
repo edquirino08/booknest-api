@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import { routes } from "./interfaces/routes";
+import { routes } from "./interfaces/routes/index.routes";
 import container from "./infra/config/plugins/di";
 
 const server = fastify({
@@ -24,4 +24,4 @@ async function startServer() {
   }
 }
 
-await startServer();
+startServer();

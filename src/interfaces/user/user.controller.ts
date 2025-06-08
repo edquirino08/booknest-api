@@ -1,4 +1,4 @@
-import { getUserUseCase } from "../application/user/get-user.usecase";
+import { getUserUseCase } from "../../application/user/get-user.usecase";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function getUser(

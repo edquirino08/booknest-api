@@ -2,7 +2,7 @@ import * as awilix from "awilix";
 import Joi from "joi";
 import _ from "lodash";
 import { getUserUseCase } from "../../../application/user/get-user.usecase";
-import { getUser } from "../../../interfaces/user.controller";
+import { getUser } from "../../../interfaces/user/user.controller";
 
 const container = awilix.createContainer({
   injectionMode: "PROXY", // permite injeção automática por nome
