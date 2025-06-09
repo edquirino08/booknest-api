@@ -10,16 +10,18 @@ export class HttpPresenter {
 
   static error(
     reply: FastifyReply,
-    message: string,
+    message: object | string,
     code?: number
   ): FastifyReply {
     if (code) {
-      return reply.code(code).send({
-        message: message,
-      });
+      return reply
+        .code(code)
+        .send(
+          typeof message === "object"
+            ? { message: "Validation error", errors: message }
+            : { message }
+        );
     }
-    return reply.code(400).send({
-      message: message,
-    });
+    return reply.code(400).send({ message });
   }
 }

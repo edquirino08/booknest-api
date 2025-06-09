@@ -1,10 +1,13 @@
 import fastify from "fastify";
 import { routes } from "./interfaces/routes/index.routes";
 import container from "./infra/config/plugins/di";
+import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
 
 const server = fastify({
   logger: true,
 });
+
+server.setErrorHandler(exceptionHandler);
 
 server.register(routes);
 
