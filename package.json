@@ -26,6 +26,7 @@
   "homepage": "https://github.com/edquirino08/booknest-api#readme",
   "dependencies": {
     "@fastify/awilix": "^8.0.0",
+    "@fastify/jwt": "^9.1.0",
     "@prisma/client": "^6.6.0",
     "@types/bcrypt": "^5.0.2",
     "awilix": "^12.0.5",

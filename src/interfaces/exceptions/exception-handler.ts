@@ -17,6 +17,13 @@ export class ZodValidationException extends Error {
   }
 }
 
+export class JwtException extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "JwtException";
+  }
+}
+
 export const exceptionHandler = (
   error: any,
   request: FastifyRequest,
@@ -28,6 +35,10 @@ export const exceptionHandler = (
 
   if (error instanceof ZodValidationException) {
     return HttpPresenter.error(reply, error.errors, 422);
+  }
+
+  if (error instanceof JwtException) {
+    return HttpPresenter.error(reply, error.message, 401);
   }
 
   return reply.status(500).send({

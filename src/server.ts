@@ -2,10 +2,13 @@ import fastify from "fastify";
 import { routes } from "./interfaces/routes/index.routes";
 import container from "./infra/config/plugins/di";
 import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
+import { setupJwt } from "./infra/config/plugins/jwt";
 
 const server = fastify({
   logger: true,
 });
+
+setupJwt(server);
 
 server.setErrorHandler(exceptionHandler);
 

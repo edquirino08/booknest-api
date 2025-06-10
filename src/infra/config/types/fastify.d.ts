@@ -6,3 +6,9 @@ declare module "fastify" {
     container: () => AwilixContainer;
   }
 }
+
+declare module "fastify" {
+  interface FastifyInstance {
+    authenticate: any;
+  }
+}
