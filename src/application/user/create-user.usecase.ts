@@ -1,21 +1,40 @@
-import { CreateUserDto } from "../../interfaces/user/dto/create-user.dto";
-import { User, UserProps } from "../../domain/user/user.entity";
+import {
+  CreateUserDto,
+  CreateUserResponseDto,
+} from "../../interfaces/user/dto/create-user.dto";
+import { toUser } from "../../domain/user/user.entity";
 import { UserRepository } from "../../domain/user/user.repository";
+import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
+import bcrypt from "bcrypt";
 
 export default class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(requestDto: CreateUserDto): Promise<User> {
-    const userProps: UserProps = {
-      id: 0,
-      name: requestDto.name,
-      email: requestDto.email,
-      username: requestDto.username,
-      password: requestDto.password,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-    };
-    return await this.userRepository.create(new User(userProps));
+  async execute(requestDto: CreateUserDto): Promise<CreateUserResponseDto> {
+    await this.validateRequestParams(requestDto.email, requestDto.username);
+
+    const criptedPassword = await bcrypt.hash(requestDto.password, 10);
+
+    requestDto.password = criptedPassword;
+
+    const user = toUser(requestDto);
+
+    const createdUser = await this.userRepository.create(user);
+
+    return new CreateUserResponseDto(createdUser);
+  }
+
+  private async validateRequestParams(email: string, username: string) {
+    const userByEmail = await this.userRepository.findByEmail(email);
+    const userByUsername = await this.userRepository.findByUsername(username);
+
+    if (userByEmail) {
+      throw new BadRequestException(`Email '${email}' já está cadastrado`);
+    }
+    if (userByUsername) {
+      throw new BadRequestException(
+        `Username '${username}' já está cadastrado`
+      );
+    }
   }
 }

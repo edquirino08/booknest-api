@@ -7,7 +7,10 @@ import { HttpPresenter } from "../presenters/http.presenter";
 export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
-  async createUser(request: FastifyRequest, reply: FastifyReply): Promise<any> {
+  async createUser(
+    request: FastifyRequest,
+    reply: FastifyReply
+  ): Promise<FastifyReply> {
     const parseResult = CreateUserDtoSchema.safeParse(request.body);
 
     if (!parseResult.success) {

@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../../../domain/user/user.entity";
+import { User, toUser } from "../../../domain/user/user.entity";
 import { UserRepository } from "../../../domain/user/user.repository";
 
 export class UserRepositoryImpl implements UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
+
   async create(user: User): Promise<User> {
     const createdUser = await this.prisma.user.create({
       data: {
+        username: user.username,
         name: user.name,
         email: user.email,
         password: user.password,
@@ -15,15 +17,36 @@ export class UserRepositoryImpl implements UserRepository {
         deleted_at: user.deletedAt,
       },
     });
-    return new User({
-      id: createdUser.id,
-      name: createdUser.name,
-      username: user.username,
-      email: createdUser.email,
-      password: createdUser.password,
-      createdAt: createdUser.created_at,
-      updatedAt: createdUser.updated_at,
-      deletedAt: createdUser.deleted_at,
+    return toUser(createdUser);
+  }
+
+  async findByUsername(username: string): Promise<User | null> {
+    const data = await this.prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+    return data ? toUser(data) : null;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const data = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    return data ? toUser(data) : null;
+  }
+
+  async findByEmailOrUsername(
+    email: string,
+    username: string
+  ): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: {
+        email: email,
+        username: username,
+      },
     });
   }
 }

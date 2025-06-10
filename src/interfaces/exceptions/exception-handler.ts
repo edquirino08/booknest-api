@@ -23,11 +23,11 @@ export const exceptionHandler = (
   reply: FastifyReply
 ) => {
   if (error instanceof BadRequestException) {
-    return reply.send(HttpPresenter.error(reply, error.message, 400));
+    return HttpPresenter.error(reply, error.message, 400);
   }
 
   if (error instanceof ZodValidationException) {
-    return reply.send(HttpPresenter.error(reply, error.errors, 422));
+    return HttpPresenter.error(reply, error.errors, 422);
   }
 
   return reply.status(500).send({

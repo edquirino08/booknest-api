@@ -9,3 +9,19 @@ export const CreateUserDtoSchema = z.object({
 });
 
 export type CreateUserDto = z.infer<typeof CreateUserDtoSchema>;
+
+export class CreateUserResponseDto {
+  constructor(obj: any) {
+    this.id = obj.id;
+    this.name = obj.name;
+    this.username = obj.username;
+    this.email = obj.email;
+    this.createdAt = obj.createdAt;
+  }
+
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  createdAt: Date;
+}
