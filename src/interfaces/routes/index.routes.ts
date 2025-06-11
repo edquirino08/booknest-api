@@ -3,6 +3,6 @@ import { userRoutes } from "./user.routes";
 
 export async function routes(fastify: FastifyInstance) {
   await fastify.register(userRoutes, {
-    prefix: "/users",
+    prefix: "/user",
   });
 }

@@ -42,11 +42,23 @@ export class UserRepositoryImpl implements UserRepository {
     email: string,
     username: string
   ): Promise<User | null> {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: {
         email: email,
         username: username,
       },
     });
+  }
+
+  async findByEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<User | null> {
+    const data = await this.prisma.user.findFirst({
+      where: {
+        AND: [{ email: email }, { password: password }],
+      },
+    });
+    return data ? toUser(data) : null;
   }
 }
