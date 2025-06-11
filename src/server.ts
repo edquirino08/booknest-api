@@ -5,7 +5,7 @@ import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
 import { setupJwt } from "./infra/config/plugins/jwt";
 
 const server = fastify({
-  logger: true,
+  logger: false,
 });
 
 setupJwt(server);
