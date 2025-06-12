@@ -24,3 +24,19 @@ model user {
   updated_at DateTime? @updatedAt
   deleted_at DateTime?
 }
+
+model book {
+  id           Int       @id @default(autoincrement())
+  name         String    @unique
+  author       String
+  publisher    String
+  copies       Int 
+  description  String?
+  published_at DateTime?
+  genre        String?
+  pages        Int?
+  language     String?
+  available    Boolean   @default(true)
+  rating       Float?
+  date_reg     DateTime  @default(now())
+}
