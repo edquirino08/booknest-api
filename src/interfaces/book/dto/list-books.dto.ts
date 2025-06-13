@@ -13,5 +13,5 @@ export type BookResponseDto = {
 };
 
 export type ListBookResponseDto = {
-  books: BookResponseDto[];
+  books?: BookResponseDto[];
 };

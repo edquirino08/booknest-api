@@ -8,4 +8,9 @@ export function bookRoutes(fastify: FastifyInstance) {
     { preHandler: fastify.authenticate },
     bookController.register.bind(bookController)
   );
+  fastify.get(
+    "/byName",
+    { preHandler: fastify.authenticate },
+    bookController.list.bind(bookController)
+  );
 }

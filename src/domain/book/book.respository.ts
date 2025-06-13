@@ -7,4 +7,5 @@ export interface BookRepository {
     author: string,
     publiser: string
   ): Promise<Book | null>;
+  findByName(name: string): Promise<Book[]>;
 }

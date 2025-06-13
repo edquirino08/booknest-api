@@ -40,7 +40,9 @@ export class BookRepositoryImpl implements BookRepository {
 
   async findByName(name: string): Promise<Book[]> {
     const data = await this.prisma.book.findMany({
-      where: { name: name },
+      where: {
+        AND: [{ name: name }, { available: true }],
+      },
     });
     return data.map((book: any) => new Book({ ...book }));
   }
