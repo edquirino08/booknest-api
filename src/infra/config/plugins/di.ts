@@ -7,7 +7,7 @@ import { UserRepositoryImpl } from "../../database/repositories/user.repository.
 import prisma from "../../database/prisma.client";
 import { LoginUseCase } from "../../../application/user/user-login.usecase";
 import { BookController } from "../../../interfaces/book/book.controller";
-import RegisterBookUsecase from "../../../application/books/register-book.usecase";
+import RegisterBookUsecase from "../../../application/book/register-book.usecase";
 import { BookRepositoryImpl } from "../../database/repositories/book.repository.impl";
 
 const container = awilix.createContainer({

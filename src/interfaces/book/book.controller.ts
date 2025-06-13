@@ -1,5 +1,5 @@
 import { FastifyRequest } from "fastify/types/request";
-import RegisterBookUsecase from "../../application/books/register-book.usecase";
+import RegisterBookUsecase from "../../application/book/register-book.usecase";
 import { FastifyReply } from "fastify";
 import { RegisterBookSchema } from "./dto/register-book.dto";
 import { ZodValidationException } from "../exceptions/exception-handler";

@@ -37,4 +37,18 @@ export class BookRepositoryImpl implements BookRepository {
     });
     return data ? new Book({ ...data }) : null;
   }
+
+  async findByName(name: string): Promise<Book[]> {
+    const data = await this.prisma.book.findMany({
+      where: { name: name },
+    });
+    return data.map((book: any) => new Book({ ...book }));
+  }
+
+  async findAll(): Promise<Book[]> {
+    const data = await this.prisma.findMany({
+      where: { available: true },
+    });
+    return data.map((book: any) => new Book({ ...book }));
+  }
 }

@@ -41,8 +41,8 @@ export const exceptionHandler = (
     return HttpPresenter.error(reply, error.message, 401);
   }
 
+  console.error(error.message);
   return reply.status(500).send({
     message: "Internal Server Error",
-    error: error.message,
   });
 };
