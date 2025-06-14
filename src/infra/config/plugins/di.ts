@@ -1,12 +1,12 @@
 import * as awilix from "awilix";
 import Joi from "joi";
 import _ from "lodash";
-import { UserController } from "../../../interfaces/user/user.controller";
+import { UserController } from "../../../interfaces/controller/user.controller";
 import CreateUserUseCase from "../../../application/user/create-user.usecase";
 import { UserRepositoryImpl } from "../../database/repositories/user.repository.impl";
 import prisma from "../../database/prisma.client";
 import { LoginUseCase } from "../../../application/user/user-login.usecase";
-import { BookController } from "../../../interfaces/book/book.controller";
+import { BookController } from "../../../interfaces/controller/book.controller";
 import RegisterBookUsecase from "../../../application/book/register-book.usecase";
 import { BookRepositoryImpl } from "../../database/repositories/book.repository.impl";
 import { FindAllBooksUseCase } from "../../../application/book/find-all-books.usecase";

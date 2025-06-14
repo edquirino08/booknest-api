@@ -4,7 +4,7 @@ import { Loggable } from "../../infra/observability/loggable";
 import {
   RegisterBookRequestDto,
   RegisterBookResponseDto,
-} from "../../interfaces/book/dto/register-book.dto";
+} from "../../interfaces/dto/book/register-book.dto";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
 
 export default class RegisterBookUsecase {

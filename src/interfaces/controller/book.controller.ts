@@ -1,11 +1,11 @@
 import { FastifyRequest } from "fastify/types/request";
 import RegisterBookUsecase from "../../application/book/register-book.usecase";
 import { FastifyReply } from "fastify";
-import { RegisterBookSchema } from "./dto/register-book.dto";
+import { RegisterBookSchema } from "../dto/book/register-book.dto";
 import { ZodValidationException } from "../exceptions/exception-handler";
 import { HttpPresenter } from "../presenters/http.presenter";
 import { FindAllBooksUseCase } from "../../application/book/find-all-books.usecase";
-import { PageableRequestSchema } from "../dtos/pageable/global-pageable.dto";
+import { PageableRequestSchema } from "../dto/pageable/global-pageable.dto";
 
 export class BookController {
   constructor(

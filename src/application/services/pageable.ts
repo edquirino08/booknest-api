@@ -1,4 +1,4 @@
-import { PageableRequestDto } from "../../interfaces/dtos/pageable/global-pageable.dto";
+import { PageableRequestDto } from "../../interfaces/dto/pageable/global-pageable.dto";
 
 export class Pageable {
   static execute(args: any): PrismaPageable {

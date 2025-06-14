@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateUserDtoSchema } from "./dto/create-user.dto";
+import { CreateUserDtoSchema } from "../dto/user/create-user.dto";
 import CreateUserUseCase from "../../application/user/create-user.usecase";
 import { ZodValidationException } from "../exceptions/exception-handler";
 import { HttpPresenter } from "../presenters/http.presenter";
-import { LoginSchema } from "./dto/user-login.dto";
+import { LoginSchema } from "../dto/user/user-login.dto";
 import { LoginUseCase } from "../../application/user/user-login.usecase";
 
 export class UserController {

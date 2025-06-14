@@ -1,7 +1,7 @@
 import { BookRepository } from "../../domain/book/book.respository";
 import { Loggable } from "../../infra/observability/loggable";
-import { ListBookResponseDto } from "../../interfaces/book/dto/list-books.dto";
-import { PageableRequestDto } from "../../interfaces/dtos/pageable/global-pageable.dto";
+import { ListBookResponseDto } from "../../interfaces/dto/book/list-books.dto";
+import { PageableRequestDto } from "../../interfaces/dto/pageable/global-pageable.dto";
 import { Pageable } from "../services/pageable";
 
 export class FindAllBooksUseCase {

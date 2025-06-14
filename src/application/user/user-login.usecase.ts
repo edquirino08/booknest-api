@@ -4,7 +4,7 @@ import { BadRequestException } from "../../interfaces/exceptions/exception-handl
 import {
   LoginRequestDto,
   LoginResponseDto,
-} from "../../interfaces/user/dto/user-login.dto";
+} from "../../interfaces/dto/user/user-login.dto";
 import bcrypt from "bcrypt";
 import { Loggable } from "../../infra/observability/loggable";
 

@@ -1,7 +1,7 @@
 import {
   CreateUserDto,
   CreateUserResponseDto,
-} from "../../interfaces/user/dto/create-user.dto";
+} from "../../interfaces/dto/user/create-user.dto";
 import { toUser } from "../../domain/user/user.entity";
 import { UserRepository } from "../../domain/user/user.repository";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
