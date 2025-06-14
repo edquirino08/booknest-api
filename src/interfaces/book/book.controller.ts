@@ -8,11 +8,14 @@ import {
 } from "../exceptions/exception-handler";
 import { HttpPresenter } from "../presenters/http.presenter";
 import { ListBookUseCase } from "../../application/book/list-book.usecase";
+import { FindAllBooksUseCase } from "../../application/book/find-all-books.usecase";
+import { PageableRequestSchema } from "../dtos/pageable/global-pageable.dto";
 
 export class BookController {
   constructor(
     private readonly registerBookUseCase: RegisterBookUsecase,
-    private readonly listBookUseCase: ListBookUseCase
+    private readonly listBookUseCase: ListBookUseCase,
+    private readonly findAllBooksUseCase: FindAllBooksUseCase
   ) {}
 
   async register(
@@ -41,5 +44,17 @@ export class BookController {
       "Books listed successfuly!",
       await this.listBookUseCase.execute(name)
     );
+  }
+
+  async findAll(
+    req: FastifyRequest,
+    reply: FastifyReply
+  ): Promise<FastifyReply> {
+    const parsedQuery = PageableRequestSchema.safeParse(req.query);
+    if (!parsedQuery.success) {
+      throw new ZodValidationException(parsedQuery.error.errors);
+    }
+    const data = await this.findAllBooksUseCase.execute(parsedQuery.data);
+    return HttpPresenter.ok(reply, "Books listed successfuly!", data);
   }
 }

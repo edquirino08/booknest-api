@@ -14,4 +14,9 @@ export type BookResponseDto = {
 
 export type ListBookResponseDto = {
   books?: BookResponseDto[];
+  pageable: {
+    page: number;
+    size: number;
+    numberOfElements: number;
+  };
 };
