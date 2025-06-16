@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const PageableRequestSchema = z
+export const GenericFilteringAndPaginationSchema = z
   .object({
     sort: z.union([z.string(), z.array(z.string())]).default([]),
     page: z.coerce.number().positive().default(1),
@@ -12,4 +12,6 @@ export const PageableRequestSchema = z
     sort: Array.isArray(data.sort) ? data.sort : [data.sort],
   }));
 
-export type PageableRequestDto = z.infer<typeof PageableRequestSchema>;
+export type GenericFilteringAndPaginationDto = z.infer<
+  typeof GenericFilteringAndPaginationSchema
+>;

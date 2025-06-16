@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Book } from "../../../domain/book/book.entity";
 import { BookRepository } from "../../../domain/book/book.respository";
-import { PrismaPageable } from "../../../application/services/pageable";
+import { PrismaFilteringData } from "../../../application/services/prisma-filtering.service";
 
 export class BookRepositoryImpl implements BookRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -48,8 +48,8 @@ export class BookRepositoryImpl implements BookRepository {
     return data.map((book: any) => new Book({ ...book }));
   }
 
-  async findAll(pageable: PrismaPageable): Promise<Book[]> {
-    const data = await this.prisma.book.findMany(pageable);
+  async findAll(args: PrismaFilteringData): Promise<Book[] | undefined> {
+    const data = await this.prisma.book.findMany(args);
     return data.map((book: any) => new Book({ ...book }));
   }
 }

@@ -1,4 +1,4 @@
-import { PrismaPageable } from "../../application/services/pageable";
+import { PrismaFilteringData } from "../../application/services/prisma-filtering.service";
 import { Book } from "./book.entity";
 
 export interface BookRepository {
@@ -9,5 +9,5 @@ export interface BookRepository {
     publiser: string
   ): Promise<Book | null>;
   findByName(name: string): Promise<Book[]>;
-  findAll(orderBy: PrismaPageable): Promise<Book[]>;
+  findAll(args: PrismaFilteringData): Promise<Book[] | undefined>;
 }

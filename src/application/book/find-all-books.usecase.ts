@@ -1,23 +1,41 @@
+import { Prisma } from "../../../prisma/generated";
 import { BookRepository } from "../../domain/book/book.respository";
 import { Loggable } from "../../infra/observability/loggable";
 import { ListBookResponseDto } from "../../interfaces/dto/book/list-books.dto";
 import { PageableRequestDto } from "../../interfaces/dto/pageable/global-pageable.dto";
-import { Pageable } from "../services/pageable";
+import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
+import { PrismaFilteringService } from "../services/prisma-filtering.service";
 
 export class FindAllBooksUseCase {
   constructor(private readonly bookRepository: BookRepository) {}
 
   @Loggable()
   async execute(query: PageableRequestDto): Promise<ListBookResponseDto> {
-    const pageable = Pageable.execute(query);
-    const data = await this.bookRepository.findAll(pageable);
-    return {
-      books: data,
-      pageable: {
-        page: query.page,
-        size: query.size,
-        numberOfElements: data.length,
-      },
-    };
+    try {
+      const args = PrismaFilteringService.execute(query);
+      const data = await this.bookRepository.findAll(args);
+      return {
+        books: data,
+        pageable: {
+          page: query.page,
+          size: query.size,
+          numberOfElements: data?.length ?? 0,
+        },
+      };
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientValidationError) {
+        const message = (err as Error).message;
+        let errorMsg = message;
+
+        const match = RegExp(/Unknown argument.*(\n|$)/).exec(message);
+        if (match) {
+          errorMsg = match[0]
+            .replace("Available options are marked with ?.", "")
+            .trim();
+        }
+        throw new BadRequestException(errorMsg);
+      }
+      throw err;
+    }
   }
 }
