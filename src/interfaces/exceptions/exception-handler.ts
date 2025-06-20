@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { HttpPresenter } from "../presenters/http.presenter";
+import logger from "../../infra/observability/pino.logger";
 
 export class BadRequestException extends Error {
   constructor(message: string) {
@@ -29,20 +30,22 @@ export const exceptionHandler = (
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  if (error instanceof BadRequestException) {
-    return HttpPresenter.error(reply, error.message, 400);
-  }
+  const instance = error.constructor;
 
-  if (error instanceof ZodValidationException) {
-    return HttpPresenter.error(reply, error.errors, 422);
-  }
+  switch (instance) {
+    case BadRequestException:
+      return HttpPresenter.error(reply, error.message, 400);
 
-  if (error instanceof JwtException) {
-    return HttpPresenter.error(reply, error.message, 401);
-  }
+    case ZodValidationException:
+      return HttpPresenter.error(reply, error.errors, 422);
 
-  console.error(error.message);
-  return reply.status(500).send({
-    message: "Internal Server Error",
-  });
+    case JwtException:
+      return HttpPresenter.error(reply, error.message, 401);
+
+    default:
+      logger.error(error.message);
+      return reply.status(500).send({
+        message: "Internal Server Error",
+      });
+  }
 };

@@ -1,6 +1,5 @@
 import { Prisma } from "../../../prisma/generated";
 import { BookRepository } from "../../domain/book/book.respository";
-import { Loggable } from "../../infra/observability/loggable";
 import { ListBookResponseDto } from "../../interfaces/dto/book/list-books.dto";
 import { PageableRequestDto } from "../../interfaces/dto/pageable/global-pageable.dto";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
@@ -9,7 +8,6 @@ import { PrismaFilteringService } from "../services/prisma-filtering.service";
 export class FindAllBooksUseCase {
   constructor(private readonly bookRepository: BookRepository) {}
 
-  @Loggable()
   async execute(query: PageableRequestDto): Promise<ListBookResponseDto> {
     try {
       const args = PrismaFilteringService.execute(query);

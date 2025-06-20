@@ -6,12 +6,10 @@ import { toUser } from "../../domain/user/user.entity";
 import { UserRepository } from "../../domain/user/user.repository";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
 import bcrypt from "bcrypt";
-import { Loggable } from "../../infra/observability/loggable";
 
 export default class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  @Loggable()
   async execute(requestDto: CreateUserDto): Promise<CreateUserResponseDto> {
     await this.validateRequestParams(requestDto.email, requestDto.username);
 

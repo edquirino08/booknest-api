@@ -8,7 +8,7 @@ export class HttpPresenter {
     });
   }
 
-  static error(
+  static error<T>(
     reply: FastifyReply,
     message: object | string,
     code?: number

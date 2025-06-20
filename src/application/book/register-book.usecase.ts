@@ -1,6 +1,5 @@
 import { Book, BookProps } from "../../domain/book/book.entity";
 import { BookRepository } from "../../domain/book/book.respository";
-import { Loggable } from "../../infra/observability/loggable";
 import {
   RegisterBookRequestDto,
   RegisterBookResponseDto,
@@ -10,7 +9,6 @@ import { BadRequestException } from "../../interfaces/exceptions/exception-handl
 export default class RegisterBookUsecase {
   constructor(private readonly bookRepository: BookRepository) {}
 
-  @Loggable()
   async execute(req: RegisterBookRequestDto): Promise<RegisterBookResponseDto> {
     const book = await this.bookRepository.findByNameAndAuthorAndPubliser(
       req.name,

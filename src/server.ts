@@ -3,10 +3,14 @@ import { routes } from "./interfaces/routes/index.routes";
 import container from "./infra/config/plugins/di";
 import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
 import { setupJwt } from "./infra/config/plugins/jwt";
+import { pinoConfig } from "./infra/observability/pino.logger";
+import preHandler from "./infra/observability/request-hook.logger";
 
 const server = fastify({
-  logger: false,
+  logger: pinoConfig,
 });
+
+preHandler(server);
 
 setupJwt(server);
 

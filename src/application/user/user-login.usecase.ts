@@ -6,12 +6,10 @@ import {
   LoginResponseDto,
 } from "../../interfaces/dto/user/user-login.dto";
 import bcrypt from "bcrypt";
-import { Loggable } from "../../infra/observability/loggable";
 
 export class LoginUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  @Loggable()
   async execute(
     fastifyRequest: FastifyRequest,
     requestDto: LoginRequestDto

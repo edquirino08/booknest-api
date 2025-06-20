@@ -39,6 +39,6 @@ export class UserController {
 
     const data = await this.loginUseCase.execute(request, parseResult.data);
 
-    return HttpPresenter.ok(reply, "User created successfully", data);
+    return HttpPresenter.ok(reply, "User logged successfully", data);
   }
 }
