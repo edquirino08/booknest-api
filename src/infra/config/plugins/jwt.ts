@@ -12,9 +12,13 @@ export const setupJwt = (fastify: FastifyInstance) => {
     secret,
   });
 
-  fastify.decorate(
-    "authenticate",
+  fastify.addHook(
+    "preHandler",
     async (request: FastifyRequest, reply: FastifyReply) => {
+      const publicRoutes = ["/user", "/user/login"];
+      if (publicRoutes.includes(request.url)) {
+        return;
+      }
       try {
         await request.jwtVerify();
       } catch (error) {
