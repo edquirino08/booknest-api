@@ -17,6 +17,7 @@ export class CreateUserResponseDto {
     this.username = obj.username;
     this.email = obj.email;
     this.createdAt = obj.createdAt;
+    this.role = obj.role;
   }
 
   id: number;
@@ -24,4 +25,5 @@ export class CreateUserResponseDto {
   username: string;
   email: string;
   createdAt: Date;
+  role: string;
 }

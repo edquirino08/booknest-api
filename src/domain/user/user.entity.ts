@@ -4,6 +4,7 @@ export type UserProps = {
   username: string;
   email: string;
   password: string;
+  role: string;
   createdAt: Date;
   updatedAt: Date | null;
   deletedAt: Date | null;
@@ -36,6 +37,10 @@ export class User {
     return this.props.password;
   }
 
+  get role(): string {
+    return this.props.role;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -56,6 +61,7 @@ export function toUser(prismaUser: any): User {
     username: prismaUser.username,
     email: prismaUser.email,
     password: prismaUser.password,
+    role: prismaUser.role,
     createdAt: prismaUser.created_at,
     updatedAt: prismaUser.updated_at,
     deletedAt: prismaUser.deleted_at,

@@ -34,6 +34,7 @@ export class LoginUseCase {
       userId: user.id,
       email: user.email,
       username: user.username,
+      role: user.role,
     };
 
     const token = fastifyRequest.server.jwt.sign(payload, {
