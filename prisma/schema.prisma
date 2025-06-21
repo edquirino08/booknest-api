@@ -18,8 +18,9 @@ model user {
   id         Int      @id @default(autoincrement())
   username   String   @unique
   name       String
-  email      String   @unique
+  email      String    @unique
   password   String
+  role       String    @default("user")
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
   deleted_at DateTime?
