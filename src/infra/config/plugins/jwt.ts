@@ -13,7 +13,7 @@ export const setupJwt = (fastify: FastifyInstance) => {
   });
 
   fastify.addHook(
-    "preHandler",
+    "onRequest",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const publicRoutes = ["/user", "/user/login"];
       if (publicRoutes.includes(request.url)) {

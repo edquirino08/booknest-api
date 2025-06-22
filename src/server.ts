@@ -4,15 +4,16 @@ import container from "./infra/config/plugins/di";
 import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
 import { setupJwt } from "./infra/config/plugins/jwt";
 import { pinoConfig } from "./infra/observability/pino.logger";
-import preHandler from "./infra/observability/request-hook.logger";
+import requestLogHandler from "./infra/config/hooks/request-hook.logger";
+import roles from "./infra/config/hooks/roles.hook";
 
 const server = fastify({
   logger: pinoConfig,
 });
 
-preHandler(server);
-
 setupJwt(server);
+roles(server);
+requestLogHandler(server);
 
 server.setErrorHandler(exceptionHandler);
 

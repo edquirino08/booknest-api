@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { HttpPresenter } from "../presenters/http.presenter";
-import logger from "../../infra/observability/pino.logger";
 
 export class BadRequestException extends Error {
   constructor(message: string) {
@@ -25,27 +24,36 @@ export class JwtException extends Error {
   }
 }
 
+export class ResourceAuthorizationException extends Error {
+  constructor() {
+    super("Access denied.");
+    this.name = "ResourceAuthorizationException";
+  }
+}
+
 export const exceptionHandler = (
   error: any,
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const instance = error.constructor;
-
-  switch (instance) {
-    case BadRequestException:
-      return HttpPresenter.error(reply, error.message, 400);
-
-    case ZodValidationException:
-      return HttpPresenter.error(reply, error.errors, 422);
-
-    case JwtException:
-      return HttpPresenter.error(reply, error.message, 401);
-
-    default:
-      logger.error(error.message);
-      return reply.status(500).send({
-        message: "Internal Server Error",
-      });
+  if (error instanceof BadRequestException) {
+    return HttpPresenter.error(reply, error.message, 400);
   }
+
+  if (error instanceof ZodValidationException) {
+    return HttpPresenter.error(reply, error.errors, 422);
+  }
+
+  if (error instanceof JwtException) {
+    return HttpPresenter.error(reply, error.message, 401);
+  }
+
+  if (error instanceof ResourceAuthorizationException) {
+    return HttpPresenter.error(reply, error.message, 401);
+  }
+
+  console.error(error.message);
+  return reply.status(500).send({
+    message: "Internal Server Error",
+  });
 };

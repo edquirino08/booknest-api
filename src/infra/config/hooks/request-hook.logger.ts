@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 
-const preHandler = async (fastify: FastifyInstance) => {
-  fastify.addHook("preHandler", async (request, reply) => {
+const requestLogHandler = async (fastify: FastifyInstance) => {
+  fastify.addHook("preHandler", async (request) => {
     const { url } = request;
     if (!["/user/login", "/user"].includes(url) && request.body) {
       request.log.info({ body: request.body });
@@ -9,4 +9,4 @@ const preHandler = async (fastify: FastifyInstance) => {
   });
 };
 
-export default preHandler;
+export default requestLogHandler;
