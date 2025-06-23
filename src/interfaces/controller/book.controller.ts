@@ -5,7 +5,7 @@ import { RegisterBookSchema } from "../dto/book/register-book.dto";
 import { ZodValidationException } from "../exceptions/exception-handler";
 import { HttpPresenter } from "../presenters/http.presenter";
 import { FindAllBooksUseCase } from "../../application/book/find-all-books.usecase";
-import { PageableRequestSchema } from "../dto/pageable/global-pageable.dto";
+import { GenericFilteringAndPaginationSchema } from "../dto/utils/generic-filtering-pagination.dto";
 
 export class BookController {
   constructor(
@@ -33,7 +33,9 @@ export class BookController {
     req: FastifyRequest,
     reply: FastifyReply
   ): Promise<FastifyReply> {
-    const parsedQuery = PageableRequestSchema.safeParse(req.query);
+    const parsedQuery = GenericFilteringAndPaginationSchema.safeParse(
+      req.query
+    );
     if (!parsedQuery.success) {
       throw new ZodValidationException(parsedQuery.error.errors);
     }

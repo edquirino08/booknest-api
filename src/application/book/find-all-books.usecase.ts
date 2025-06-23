@@ -1,14 +1,16 @@
 import { Prisma } from "../../../prisma/generated";
 import { BookRepository } from "../../domain/book/book.respository";
 import { ListBookResponseDto } from "../../interfaces/dto/book/list-books.dto";
-import { PageableRequestDto } from "../../interfaces/dto/pageable/global-pageable.dto";
+import { GenericFilteringAndPaginationDto } from "../../interfaces/dto/utils/generic-filtering-pagination.dto";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
 import { PrismaFilteringService } from "../services/prisma-filtering.service";
 
 export class FindAllBooksUseCase {
   constructor(private readonly bookRepository: BookRepository) {}
 
-  async execute(query: PageableRequestDto): Promise<ListBookResponseDto> {
+  async execute(
+    query: GenericFilteringAndPaginationDto
+  ): Promise<ListBookResponseDto> {
     try {
       const args = PrismaFilteringService.execute(query);
       const data = await this.bookRepository.findAll(args);
