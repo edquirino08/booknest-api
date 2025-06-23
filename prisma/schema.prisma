@@ -41,3 +41,12 @@ model book {
   rating       Float?
   date_reg     DateTime  @default(now())
 }
+
+model book_rental {
+  uuid          String       @id
+  id_book       Int
+  id_user       Int
+  returned      Boolean      @default(false)
+  date_reg      DateTime     @default(now())
+  return_date   DateTime?    
+}
