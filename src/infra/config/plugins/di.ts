@@ -11,6 +11,7 @@ import RegisterBookUsecase from "../../../application/book/register-book.usecase
 import { BookRepositoryImpl } from "../../database/repositories/book.repository.impl";
 import { FindAllBooksUseCase } from "../../../application/book/find-all-books.usecase";
 import { UpdateBookUseCase } from "../../../application/book/update-book.usecase";
+import { DeleteBookUseCase } from "../../../application/book/delete-book.usecase";
 
 const container = awilix.createContainer({
   injectionMode: "CLASSIC",
@@ -28,6 +29,7 @@ container.register({
   findAllBooksUseCase: awilix.asClass(FindAllBooksUseCase).singleton(),
   bookRepository: awilix.asClass(BookRepositoryImpl).singleton(),
   updateBookUseCase: awilix.asClass(UpdateBookUseCase).singleton(),
+  deleteBookUseCase: awilix.asClass(DeleteBookUseCase).singleton(),
   prisma: awilix.asValue(prisma),
 });
 

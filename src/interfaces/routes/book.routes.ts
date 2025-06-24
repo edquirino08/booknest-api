@@ -11,4 +11,5 @@ export function bookRoutes(fastify: FastifyInstance) {
   fastify.post("/", routeConfig, bookController.register.bind(bookController));
   fastify.get("/", bookController.findAll.bind(bookController));
   fastify.put("/", routeConfig, bookController.update.bind(bookController));
+  fastify.delete("/", routeConfig, bookController.delete.bind(bookController));
 }

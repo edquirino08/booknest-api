@@ -6,15 +6,17 @@ import { ZodValidationException } from "../exceptions/exception-handler";
 import { HttpPresenter } from "../presenters/http.presenter";
 import { FindAllBooksUseCase } from "../../application/book/find-all-books.usecase";
 import { GenericFilteringAndPaginationSchema } from "../dto/utils/generic-filtering-pagination.dto";
-import { BookResponseDto } from "../dto/book/list-books.dto";
 import { UpdateBookUseCase } from "../../application/book/update-book.usecase";
 import { UpdateBookSchema } from "../dto/book/update-book.dto";
+import { DeleteBookUseCase } from "../../application/book/delete-book.usecase";
+import { DeleteBookDto, DeleteBookSchema } from "../dto/book/delete-book.dto";
 
 export class BookController {
   constructor(
     private readonly registerBookUseCase: RegisterBookUsecase,
     private readonly findAllBooksUseCase: FindAllBooksUseCase,
-    private readonly updateBookUseCase: UpdateBookUseCase
+    private readonly updateBookUseCase: UpdateBookUseCase,
+    private readonly deleteBookUseCase: DeleteBookUseCase
   ) {}
 
   async register(
@@ -28,7 +30,7 @@ export class BookController {
 
     return HttpPresenter.ok(
       reply,
-      "Book registred successfuly!",
+      "Book registred successfully!",
       await this.registerBookUseCase.execute(parsedBody.data)
     );
   }
@@ -44,18 +46,32 @@ export class BookController {
       throw new ZodValidationException(parsedQuery.error.errors);
     }
     const data = await this.findAllBooksUseCase.execute(parsedQuery.data);
-    return HttpPresenter.ok(reply, "Books listed successfuly!", data);
+    return HttpPresenter.ok(reply, "Books listed successfully!", data);
   }
 
   async update(
     req: FastifyRequest,
     reply: FastifyReply
-  ): Promise<BookResponseDto> {
+  ): Promise<FastifyReply> {
     const data = UpdateBookSchema.safeParse(req.body);
     if (data.error) {
       throw new ZodValidationException(data.error.errors);
     }
     const res = await this.updateBookUseCase.execute(data.data);
-    return HttpPresenter.ok(reply, "Book updated successfuly!", res);
+    return HttpPresenter.ok(reply, "Book updated successfully!", res);
+  }
+
+  async delete(
+    req: FastifyRequest<{ Querystring: DeleteBookDto }>,
+    reply: FastifyReply
+  ): Promise<FastifyReply> {
+    const parsedQuery = DeleteBookSchema.safeParse(req.query);
+
+    if (parsedQuery.error) {
+      throw new ZodValidationException(parsedQuery.error.errors);
+    }
+
+    await this.deleteBookUseCase.execute(parsedQuery.data.id);
+    return HttpPresenter.ok(reply, "Book deleted successfully");
   }
 }

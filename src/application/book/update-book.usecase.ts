@@ -3,10 +3,6 @@ import { BookRepository } from "../../domain/book/book.respository";
 import { BookResponseDto } from "../../interfaces/dto/book/list-books.dto";
 import { UpdateBookDto } from "../../interfaces/dto/book/update-book.dto";
 import { BadRequestException } from "../../interfaces/exceptions/exception-handler";
-import {
-  PrismaFilteringData,
-  PrismaFilteringService,
-} from "../services/prisma-filtering.service";
 
 export class UpdateBookUseCase {
   constructor(private readonly bookRepository: BookRepository) {}
