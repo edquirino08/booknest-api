@@ -52,4 +52,19 @@ export class BookRepositoryImpl implements BookRepository {
     const data = await this.prisma.book.findMany(args);
     return data.map((book: any) => new Book({ ...book }));
   }
+
+  async update(book: Book): Promise<void> {
+    await this.prisma.book.update({
+      where: {
+        id: book.id,
+      },
+      data: {
+        copies: book.copies,
+        description: book.description,
+        genre: book.genre,
+        available: book.available,
+        rating: book.rating,
+      },
+    });
+  }
 }
