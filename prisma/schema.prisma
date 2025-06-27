@@ -15,38 +15,42 @@ datasource db {
 }
 
 model user {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
+  id         Int          @id @default(autoincrement())
+  username   String       @unique
   name       String
-  email      String    @unique
+  email      String       @unique
   password   String
-  role       String    @default("USER")
-  created_at DateTime  @default(now())
-  updated_at DateTime? @updatedAt
+  role       String       @default("USER")
+  created_at DateTime     @default(now())
+  updated_at DateTime?    @updatedAt
   deleted_at DateTime?
+  book_rental book_rental[]
 }
 
 model book {
-  id           Int       @id @default(autoincrement())
-  name         String    @unique
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
   author       String
   publisher    String
-  copies       Int 
+  copies       Int
   description  String?
   published_at DateTime?
   genre        String?
   pages        Int?
   language     String?
-  available    Boolean   @default(true)
+  available    Boolean      @default(true)
   rating       Float?
-  date_reg     DateTime  @default(now())
+  date_reg     DateTime     @default(now())
+  book_rental   book_rental[]
 }
 
 model book_rental {
-  uuid          String       @id
-  id_book       Int
-  id_user       Int
-  returned      Boolean      @default(false)
-  date_reg      DateTime     @default(now())
-  return_date   DateTime?    
+  uuid        String    @id
+  book        book      @relation(fields: [bookId], references: [id])
+  bookId      Int
+  user        user      @relation(fields: [userId], references: [id])
+  userId      Int
+  returned    Boolean   @default(false)
+  date_reg    DateTime  @default(now())
+  return_date DateTime?
 }
