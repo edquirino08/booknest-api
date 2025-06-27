@@ -75,4 +75,12 @@ export class BookRepositoryImpl implements BookRepository {
       },
     });
   }
+
+  async findById(id: number): Promise<Book> {
+    return await this.prisma.book.findFirst({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

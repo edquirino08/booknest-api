@@ -12,4 +12,5 @@ export interface BookRepository {
   findAll(args: PrismaFilteringData): Promise<Book[] | undefined>;
   update(book: Book): Promise<void>;
   delete(id: number): Promise<void>;
+  findById(id: number): Promise<Book>;
 }
