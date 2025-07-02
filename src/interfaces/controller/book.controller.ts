@@ -10,13 +10,15 @@ import { UpdateBookUseCase } from "../../application/book/update-book.usecase";
 import { UpdateBookSchema } from "../dto/book/update-book.dto";
 import { DeleteBookUseCase } from "../../application/book/delete-book.usecase";
 import { DeleteBookDto, DeleteBookSchema } from "../dto/book/delete-book.dto";
+import { FinAllAvailableBooksUseCase } from "../../application/book/find-all-available-book.usecase";
 
 export class BookController {
   constructor(
     private readonly registerBookUseCase: RegisterBookUsecase,
     private readonly findAllBooksUseCase: FindAllBooksUseCase,
     private readonly updateBookUseCase: UpdateBookUseCase,
-    private readonly deleteBookUseCase: DeleteBookUseCase
+    private readonly deleteBookUseCase: DeleteBookUseCase,
+    private readonly finAllAvailableBooksUseCase: FinAllAvailableBooksUseCase
   ) {}
 
   async register(
@@ -73,5 +75,14 @@ export class BookController {
 
     await this.deleteBookUseCase.execute(parsedQuery.data.id);
     return HttpPresenter.ok(reply, "Book deleted successfully");
+  }
+
+  async findAllAvailable(req: FastifyRequest, reply: FastifyReply) {
+    const data = await this.finAllAvailableBooksUseCase.execute();
+    return HttpPresenter.ok(
+      reply,
+      "Available books listed successfully!",
+      data
+    );
   }
 }

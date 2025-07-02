@@ -83,4 +83,17 @@ export class BookRepositoryImpl implements BookRepository {
       },
     });
   }
+
+  async findAllAvailable(): Promise<Book[]> {
+    return await this.prisma.$queryRaw`
+  SELECT 
+    B.*, 
+    CAST(B.copies - COUNT(BR.id) AS INTEGER) AS "copies_available"
+  FROM "book" B
+  LEFT JOIN "book_rental" BR ON B.id = BR.book_id AND BR.returned = false
+  WHERE B.available = true
+  GROUP BY B.id
+  HAVING COUNT(BR.id) < B.copies;
+`;
+  }
 }

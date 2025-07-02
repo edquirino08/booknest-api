@@ -13,4 +13,5 @@ export interface BookRepository {
   update(book: Book): Promise<void>;
   delete(id: number): Promise<void>;
   findById(id: number): Promise<Book>;
+  findAllAvailable(): Promise<Book[]>;
 }
