@@ -20,6 +20,9 @@ export class PrismaFilteringService {
           value = JSON.parse(value);
         } catch {}
       }
+      if (value === "true" || value === "false") {
+        value = value === "true";
+      }
       if (value !== undefined && value !== null && value !== "") {
         filtering[key] = value;
       }
