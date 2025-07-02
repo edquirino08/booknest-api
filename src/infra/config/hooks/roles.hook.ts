@@ -7,7 +7,7 @@ const roles = (fastify: FastifyInstance) => {
     if (!requestConfig.role) {
       return;
     }
-    const user = req.user as { id: string; role: string };
+    const user = req.user as { id: number; role: string };
 
     if (requestConfig.role !== user.role) {
       throw new ResourceAuthorizationException();
