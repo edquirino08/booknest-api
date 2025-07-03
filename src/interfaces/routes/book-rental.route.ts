@@ -13,4 +13,9 @@ export function bookRentalRoutes(fastify: FastifyInstance) {
     routeConfig,
     rentalController.register.bind(rentalController)
   );
+  fastify.post(
+    "/return",
+    routeConfig,
+    rentalController.bookReturn.bind(rentalController)
+  );
 }

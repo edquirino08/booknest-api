@@ -33,6 +33,16 @@ export class RegisterRentalUseCase {
       throw new BadRequestException(`Book not available to rent.`);
     }
 
+    const alreadyRented =
+      await this.bookRentalRepository.findUserActiveBookRental(
+        requestDto.bookId,
+        user.id
+      );
+
+    if (alreadyRented && alreadyRented.length > 0) {
+      throw new BadRequestException(`Book already rented for this user`);
+    }
+
     const newRental = {
       book_id: requestDto.bookId,
       user_id: requestDto.userId,

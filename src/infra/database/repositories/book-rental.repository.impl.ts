@@ -26,4 +26,32 @@ export class BookRentalRepositoryImpl implements BookRentalRepository {
       },
     });
   }
+
+  async findUserActiveBookRental(
+    bookId: number,
+    userId: number
+  ): Promise<BookRental[]> {
+    return await this.prisma.book_rental.findMany({
+      where: {
+        book_id: bookId,
+        user_id: userId,
+        returned: false,
+      },
+      include: {
+        book: true,
+      },
+    });
+  }
+
+  async bookReturn(id: string): Promise<void> {
+    await this.prisma.book_rental.update({
+      where: {
+        id: id,
+      },
+      data: {
+        returned: true,
+        return_date: new Date(),
+      },
+    });
+  }
 }

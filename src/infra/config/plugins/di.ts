@@ -18,6 +18,7 @@ import { RegisterRentalUseCase } from "../../../application/book-rental/register
 import { BookRentalController } from "../../../interfaces/controller/book-rental.controller";
 import { BookRentalRepositoryImpl } from "../../database/repositories/book-rental.repository.impl";
 import { FinAllAvailableBooksUseCase } from "../../../application/book/find-all-available-book.usecase";
+import { BookReturnUseCase } from "../../../application/book-rental/book-return.usecase";
 
 const container = awilix.createContainer({
   injectionMode: "CLASSIC",
@@ -45,6 +46,7 @@ container.register({
     .asClass(AvailabilityForRentalUseCase)
     .singleton(),
   registerRentalUseCase: awilix.asClass(RegisterRentalUseCase).singleton(),
+  bookReturnUseCase: awilix.asClass(BookReturnUseCase).singleton(),
   bookRentalController: awilix.asClass(BookRentalController).singleton(),
   prisma: awilix.asValue(prisma),
 });
