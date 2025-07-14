@@ -20,7 +20,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: booknest
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
@@ -32,7 +32,7 @@ services:
       - .:/app
     env_file:
       - .env.prod
-    command: sh -c "npm install && npx prisma migrate deploy"
+    command: sh -c "apt-get update -y && apt-get install -y openssl && npm install && npx prisma migrate deploy"
     depends_on:
       - postgres
 
