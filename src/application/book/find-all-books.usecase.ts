@@ -1,4 +1,3 @@
-import { Prisma } from "../../../prisma/generated";
 import { BookRepository } from "../../domain/book/book.respository";
 import { ListBookResponseDto } from "../../interfaces/dto/book/list-books.dto";
 import { GenericFilteringAndPaginationDto } from "../../interfaces/dto/utils/generic-filtering-pagination.dto";
@@ -19,11 +18,11 @@ export class FindAllBooksUseCase {
         pageable: {
           page: query.page,
           size: query.size,
-          numberOfElements: data?.length ?? 0,
+          numberOfElements: (data ?? []).length,
         },
       };
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientValidationError) {
+      if ((err as any)?.name === "PrismaClientValidationError") {
         const message = (err as Error).message;
         let errorMsg = message;
 
