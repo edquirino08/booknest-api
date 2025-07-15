@@ -76,7 +76,7 @@ export class BookRepositoryImpl implements BookRepository {
     });
   }
 
-  async findById(id: number): Promise<Book> {
+  async findById(id: number): Promise<Book | undefined> {
     return await this.prisma.book.findFirst({
       where: {
         id: id,

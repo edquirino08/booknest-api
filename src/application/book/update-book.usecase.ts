@@ -31,7 +31,7 @@ export class UpdateBookUseCase {
   }
 
   private setNewValues(req: UpdateBookDto, book: Book) {
-    if (req.available != null || req.available != undefined) {
+    if (req.available) {
       book.available = req.available;
     }
     if (req.copies) {
