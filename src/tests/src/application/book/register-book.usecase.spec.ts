@@ -1,7 +1,7 @@
-import RegisterBookUsecase from "../../../application/book/register-book.usecase";
-import { Book, BookProps } from "../../../domain/book/book.entity";
-import { BookRepository } from "../../../domain/book/book.respository";
-import { BadRequestException } from "../../../interfaces/exceptions/exception-handler";
+import RegisterBookUsecase from "../../../../application/book/register-book.usecase";
+import { Book, BookProps } from "../../../../domain/book/book.entity";
+import { BookRepository } from "../../../../domain/book/book.respository";
+import { BadRequestException } from "../../../../interfaces/exceptions/exception-handler";
 
 describe("RegisterBookUsecase", () => {
   let bookRepository: jest.Mocked<BookRepository>;
@@ -62,7 +62,6 @@ describe("RegisterBookUsecase", () => {
       dateReg: new Date(),
     });
 
-    bookRepository.findByNameAndAuthorAndPubliser.mockResolvedValue(null);
     bookRepository.register.mockResolvedValue(book);
 
     const response = await usecase.execute(request);
