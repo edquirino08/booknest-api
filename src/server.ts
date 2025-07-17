@@ -4,6 +4,8 @@ import container from "./infra/config/plugins/di";
 import { exceptionHandler } from "./interfaces/exceptions/exception-handler";
 import { pinoConfig } from "./infra/observability/pino.logger";
 import setupHooks from "./infra/config/hooks/index.hooks";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
 
 const server = fastify({
   logger: pinoConfig,
@@ -12,6 +14,18 @@ const server = fastify({
 setupHooks(server);
 
 server.setErrorHandler(exceptionHandler);
+
+server.register(swagger, {
+  openapi: {
+    info: {
+      title: "Minha API de Aluguel de Livros",
+      version: "1.0.0",
+    },
+  },
+});
+server.register(swaggerUi, {
+  routePrefix: "/docs",
+});
 
 server.register(routes);
 

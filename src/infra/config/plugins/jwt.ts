@@ -16,7 +16,10 @@ export const setupJwt = (fastify: FastifyInstance) => {
     "onRequest",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const publicRoutes = ["/user", "/user/login"];
-      if (publicRoutes.includes(request.url)) {
+      if (
+        publicRoutes.includes(request.url) ||
+        request.url.startsWith("/docs")
+      ) {
         return;
       }
       try {
