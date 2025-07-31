@@ -7,6 +7,7 @@ import setupHooks from "./infra/config/hooks/index.hooks";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import dotenv from "dotenv";
+dotenv.config();
 
 const server = fastify({
   logger: pinoConfig,
@@ -28,6 +29,10 @@ server.register(swagger, {
 });
 server.register(swaggerUi, {
   routePrefix: "/docs",
+  uiConfig: {
+    docExpansion: "list",
+    deepLinking: false,
+  },
 });
 
 server.register(routes);
