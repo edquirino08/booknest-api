@@ -6,10 +6,13 @@ import { pinoConfig } from "./infra/observability/pino.logger";
 import setupHooks from "./infra/config/hooks/index.hooks";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
+import dotenv from "dotenv";
 
 const server = fastify({
   logger: pinoConfig,
 });
+
+dotenv.config();
 
 setupHooks(server);
 
