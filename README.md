@@ -13,10 +13,14 @@ Booknest API is a scalable, modern RESTful API for managing books, built with No
 - 🧪 Unit and integration tests with Jest
 - 🚀 Ready for Docker and CI/CD
 
-## Container
+## Docker Container
 
 - Docker Hub image link: https://hub.docker.com/repository/docker/edquirino08/booknest-api/general
 - Run "docker run -d -p 3000:3000 --name <container-name> edquirino08/booknest-api:latest"
+
+## Api Documentation (Swagger)
+
+- Instal and run the application, then go to 'http://localhost:3000/docs' to view the Swagger document.
 
 ## Technologies
 

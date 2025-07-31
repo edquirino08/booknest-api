@@ -31,3 +31,19 @@ export type RegisterBookResponseDto = {
   rating?: number | null;
   dateReg: Date;
 };
+
+export const RegisterBookResponseSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  author: z.string(),
+  publisher: z.string(),
+  copies: z.number(),
+  description: z.string().nullable().optional(),
+  publishedAt: z.coerce.date().nullable().optional(),
+  genre: z.string().nullable().optional(),
+  pages: z.number().nullable().optional(),
+  language: z.string().nullable().optional(),
+  available: z.boolean(),
+  rating: z.number().nullable().optional(),
+  dateReg: z.coerce.date(),
+});

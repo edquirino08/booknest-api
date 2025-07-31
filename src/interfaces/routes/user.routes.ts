@@ -21,7 +21,7 @@ export async function userRoutes(fastify: FastifyInstance) {
           200: zodToJsonSchema(CreateUserResponseDtoSchema),
         },
         tags: ["User"],
-        summary: "Cria um novo usuário",
+        summary: "Create e new User",
       },
     },
     userController.createUser.bind(userController)
@@ -33,7 +33,7 @@ export async function userRoutes(fastify: FastifyInstance) {
       schema: {
         body: zodToJsonSchema(LoginSchema),
         tags: ["User"],
-        summary: "Realiza login do usuário",
+        summary: "User login",
         response: {
           200: zodToJsonSchema(UserLoginResponseDtoSchema),
         },
