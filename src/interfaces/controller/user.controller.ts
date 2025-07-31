@@ -24,7 +24,7 @@ export class UserController {
 
     const data = await this.createUserUseCase.execute(parseResult.data);
 
-    return HttpPresenter.ok(reply, "Login Success", data);
+    return HttpPresenter.ok(reply, "User created successfully!", data);
   }
 
   async login(

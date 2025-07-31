@@ -10,3 +10,10 @@ export type LoginRequestDto = z.infer<typeof LoginSchema>;
 export type LoginResponseDto = {
   jwt: string;
 };
+
+export const UserLoginResponseDtoSchema = z.object({
+  message: z.string(),
+  data: z.object({
+    jwt: z.string(),
+  }),
+});

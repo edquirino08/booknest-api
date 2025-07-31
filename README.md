@@ -9,9 +9,18 @@ Booknest API is a scalable, modern RESTful API for managing books, built with No
 - 🧩 Dependency Injection with Awilix
 - 🗃️ Filtering, pagination, and sorting for book listings
 - 🛡️ Validation with Zod
-- 📝 API documentation (Swagger/OpenAPI recommended)
-- 🧪 Unit and integration tests (Jest recommended)
+- 📝 API documentation with Swagger
+- 🧪 Unit and integration tests with Jest
 - 🚀 Ready for Docker and CI/CD
+
+## Docker Container
+
+- Docker Hub image link: https://hub.docker.com/repository/docker/edquirino08/booknest-api/general
+- Run "docker run -d -p 3000:3000 --name <container-name> edquirino08/booknest-api:latest"
+
+## Api Documentation (Swagger)
+
+- Instal and run the application, then go to 'http://localhost:3000/docs' to view the Swagger document.
 
 ## Technologies
 
@@ -67,17 +76,8 @@ API will be available at [http://localhost:3000](http://localhost:3000)
 ### Testing
 
 ```bash
-npm test
+npm run test
 ```
-
-## API Endpoints
-
-- `POST /book` – Register a new book
-- `GET /book` – List books (supports filtering, pagination, sorting)
-- `PUT /book` – Update book
-- `DELETE /book` – Delete book
-- `GET /book/available` – List available books
-- `POST /auth/login` – Login and get JWT
 
 ## Example Request
 

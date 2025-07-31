@@ -27,3 +27,15 @@ export class CreateUserResponseDto {
   createdAt: Date;
   role: string;
 }
+
+export const CreateUserResponseDtoSchema = z.object({
+  message: z.string(),
+  data: z.object({
+    id: z.number(),
+    name: z.string(),
+    username: z.string(),
+    email: z.string(),
+    createdAt: z.string().datetime(),
+    role: z.string(),
+  }),
+});
